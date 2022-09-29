@@ -1,0 +1,6 @@
+is_prime_prog
+
+    • privilégié le type int que string pour alléger l’utilisation de fonction en plus (stoi)
+    • devrait commenter le code pour une meilleure comprehension. 
+    • Bien indenté les boucles et les accolades (ex :main.cpp - line 4 mettre accolade à la ligne)
+

@@ -1,0 +1,5 @@
+find_motive
+
+    • devrait commenter le code pour une meilleure comprehension. 
+    • Un nom de variable flou (fin) 
+    • Bien indenté les boucles et les accolades (ex :main.cpp - accolade line 5 )
