@@ -1,0 +1,19 @@
+-Pensez à faire une bonne indentation de votre code
+Ex :
+
+You have done:
+func() { 
+  ...
+}
+
+We expect:
+func() 
+{
+  ....
+}
+
+- Ligne 19 (vector.cc), pensez à ajouter une ligne vide
+
+- Code compile bien
+
+
