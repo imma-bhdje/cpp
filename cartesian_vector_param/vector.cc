@@ -6,96 +6,94 @@
 
 Vector::Vector()
 {
-    size = NDIM;
-    for(size_t i = 0;i < size; i++)
-        data[i] = 0;
+    lng = NDIM;
+    for(size_t i = 0;i < lng ; i++)
+        donne[i] = 0;
 }
 
 Vector::Vector(std::initializer_list<value> l)
 {
-    size = l.size();
+    lng = l.size();
     size_t i = 0;
-    for(auto & val : l)
+    for(auto & nbr : l)
     {
-        data[i++] = val;
+        donne[i++] = nbr;
     }
 }
 
 size_t Vector::getSize() const
 {
-    return size;
+    return lng;
 }
 
 Vector& Vector::operator+=(const Vector& rhs)
 {
     for (int i = 0; i < rhs.getSize(); i++)
-        data[i] += rhs[i];
+        donne[i] += rhs[i];
     return *this;
 }
-
-
 
 Vector& Vector::operator-=(const Vector& rhs)
 {
     for (int i = 0; i < rhs.getSize(); i++)
-        data[i] -= rhs[i];
+        donne[i] -= rhs[i];
     return *this;
 }
 
 Vector Vector::operator+(const Vector& rhs)
 {
-    auto v = Vector();
+    auto b = Vector();
     for (int i = 0; i < rhs.getSize(); i++)
-        v[i] = rhs[i] + (*this)[i];
-    return v;
+        b[i] = rhs[i] + (*this)[i];
+    return b;
 }
 
 Vector Vector::operator-(const Vector& rhs)
 {
-    auto v = Vector();
+    auto c = Vector();
     for (int i = 0; i < rhs.getSize(); i++)
-        v[i] = rhs[i] - (*this)[i];
-    return v;
+        c[i] = rhs[i] - (*this)[i];
+    return c;
 }
 
 value Vector::operator*(const Vector& rhs)
 {
-    value v = 0;
+    value d = 0;
     for (int i = 0; i < rhs.getSize(); i++)
-        v += rhs[i] * (*this)[i];
-    return v;
+        d += rhs[i] * (*this)[i];
+    return d;
 }
 
 value Vector::operator[](size_t i) const
 {
-    return data[i];
+    return donne[i];
 }
 
 value& Vector::operator[](size_t i)
 {
-    return data[i];
+    return donne[i];
 }
 
 Vector operator*(Vector& rhs,const value val)
 {
-    auto v = Vector();
+    auto e = Vector();
     for (int i = 0; i < rhs.getSize(); i++)
-        v[i] = rhs[i] * val;
-    return v;
+        e[i] = rhs[i] * val;
+    return e;
 }
 
-Vector operator*=(Vector& rhs, const value a)
+Vector operator*=(Vector& rhs, const value f)
 {
     for (int i = 0; i < rhs.getSize(); i++)
-        rhs[i] *= a;
+        rhs[i] *= f;
     return rhs;
 }
 
 
-Vector operator+=(Vector& rhs, const value a)
+Vector operator+=(Vector& rhs, const value g)
 {
     for (int i = 0; i < rhs.getSize(); i++)
-        rhs[i] += a;
+        rhs[i] += g;
     return rhs;
 }
 

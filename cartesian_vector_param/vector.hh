@@ -29,13 +29,13 @@ public:
     size_t getSize() const;
 private:
 // Private Member functions here
-    value data[NDIM];
-    size_t size;
+    value donne[NDIM];
+    size_t lng;
 // Member variables are ALWAYS private, and they go here
 };
 
 // Nonmember function operators go here
-Vector operator*(Vector& rhs, const value a);
-Vector operator+=(Vector& rhs, const value a);
-Vector operator*=(Vector& rhs, const value a);
+Vector operator*(Vector& rhs, const value b);
+Vector operator+=(Vector& rhs, const value b);
+Vector operator*=(Vector& rhs, const value b);
 std::ostream& operator<<(std::ostream& os, const Vector& rhs);
