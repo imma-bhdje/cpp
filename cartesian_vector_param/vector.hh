@@ -1,11 +1,8 @@
 #pragma once
 
 #include <ostream>
-#include <iostream>
-#include <initializer_list>
 
 #include "config.h"
-using namespace std;
 
 class Vector
 {
@@ -17,41 +14,28 @@ public:
 //
 
 // Add suitable constructors
-    Vector(){
-        for(int i = 0; i < NDIM; i++)
-        {
-            vect[i] = 0;
-        }
-    };
-    Vector(initializer_list<int> li)
-    {
-        int count = 0;
-        for (int element : li) {
-            vect[count] = element;
-            ++count;
-        }
-    };
+    Vector();
+    Vector(std::initializer_list<value> l);
     // possibly more
-// Public Member functions here
-    const int& operator[](size_t pos) const;
-    int& operator[](size_t pos);
-    Vector& operator+=(const Vector& rhs);
-    Vector& operator+=(int scalar);
-    Vector& operator-=(const Vector& rhs);
-    Vector& operator*=(const Vector& rhs);
-    Vector& operator*=(const int& scalar);
-    // More to go
 
+// Public Member functions here
+    Vector& operator+=(const Vector& rhs);
+    Vector& operator-=(const Vector& rhs);
+    Vector operator+(const Vector& rhs);
+    value operator*(const Vector& rhs);
+    Vector operator-(const Vector& rhs);
+    value& operator[](size_t i);
+    value operator[](size_t i) const;
+    size_t getSize() const;
 private:
 // Private Member functions here
-    int vect[NDIM];
+    value data[NDIM];
+    size_t size;
 // Member variables are ALWAYS private, and they go here
 };
 
 // Nonmember function operators go here
-ostream& operator<<(ostream& os, const Vector& rhs);
-Vector operator+(const Vector& lhs, const Vector& rhs);
-Vector operator-(const Vector& lhs, const Vector& rhs);
-Vector operator*(const Vector& lhs, int scalar);
-Vector operator*(int scalar, const Vector& rhs);
-int operator*(const Vector& lhs, const Vector& rhs);
+Vector operator*(Vector& rhs, const value a);
+Vector operator+=(Vector& rhs, const value a);
+Vector operator*=(Vector& rhs, const value a);
+std::ostream& operator<<(std::ostream& os, const Vector& rhs);
