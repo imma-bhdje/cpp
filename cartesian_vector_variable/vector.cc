@@ -3,14 +3,13 @@
 
 #include "vector.hh"
 
-
 Vector::Vector(const Vector& rhs)
-        : lng(rhs.lng)
-        , donne(new value[lng])
+        : N(rhs.N)
+        , data(new value[N])
 {
-    for (size_t i = 0; i < lng; ++i)
+    for (size_t i = 0; i < N; ++i)
     {
-        donne[i] = rhs.donne[i];
+        data[i] = rhs.data[i];
     }
 }
 
@@ -19,108 +18,106 @@ Vector& Vector::operator=(const Vector& rhs)
 {
     if (this != &rhs)
     {
-        lng = rhs.lng;
-        donne.reset(new value[lng]);
-        for (size_t i = 0; i < lng; ++i)
+        N = rhs.N;
+        data.reset(new value[N]);
+        for (size_t i = 0; i < N; ++i)
         {
-            donne[i] = rhs.donne[i];
+            data[i] = rhs.data[i];
         }
     }
     return *this;
 }
 
 
-Vector::Vector(size_t N) : lng(lng), donne(new value[lng]) {
+Vector::Vector(size_t N) : N(N), data(new value[N]) {
     for (size_t i = 0; i < N; ++i)
     {
-        donne[i] = 0;
+        data[i] = 0;
     }
 }
 
-Vector::Vector(std::initializer_list<value> l) : lng(l.size()), donne(new value[lng]) {
-    size_t i = 0;
+Vector::Vector(std::initializer_list<value> l) : N(l.size()), data(new value[N]) {
+    size_t a = 0;
     for (auto& v : l)
     {
-        donne[i++] = v;
+        data[a++] = v;
     }
 }
 
 size_t Vector::size() const {
-    return lng;
+    return N;
 }
 
-
 Vector& Vector::operator+=(const Vector& rhs) {
-    assert(lng == rhs.lng);
-    for (size_t i = 0; i < lng; ++i)
+    assert(N == rhs.N);
+    for (size_t i = 0; i < N; ++i)
     {
-        donne[i] += rhs.donne[i];
+        data[i] += rhs.data[i];
     }
     return *this;
 }
 
 Vector& Vector::operator-=(const Vector& rhs) {
-    assert(lng == rhs.lng);
-    for (size_t i = 0; i < lng; ++i)
+    assert(N == rhs.N);
+    for (size_t i = 0; i < N; ++i)
     {
-        donne[i] -= rhs.donne[i];
+        data[i] -= rhs.data[i];
     }
     return *this;
 }
 
-
 Vector& Vector::operator+=(value v) {
-    for (size_t i = 0; i < lng; ++i)
+    for (size_t i = 0; i < N; ++i)
     {
-        donne[i] += v;
+        data[i] += v;
     }
     return *this;
 }
 
 Vector& Vector::operator*=(value v) {
-    for (size_t i = 0; i < lng; ++i)
+    for (size_t i = 0; i < N; ++i)
     {
-        donne[i] *= v;
+        data[i] *= v;
     }
     return *this;
 }
 
 Vector Vector::operator+(const Vector& rhs) const {
-    Vector result(*this);
-    result += rhs;
-    return result;
+    Vector val(*this);
+    val += rhs;
+    return val;
 }
 
 Vector Vector::operator+(value v) const {
-    Vector result(*this);
-    result += v;
-    return result;
+    Vector val(*this);
+    val += v;
+    return val;
 }
 
 value Vector::operator*(const Vector& rhs) const {
-    assert(lng == rhs.lng);
-    value result = 0;
-    for (size_t i = 0; i < lng; ++i)
+    assert(N == rhs.N);
+    value val = 0;
+    for (size_t i = 0; i < N; ++i)
     {
-        result += donne[i] * rhs.donne[i];
+        val += data[i] * rhs.data[i];
     }
-    return result;
+    return val;
 }
 
 Vector Vector::operator*(value v) const {
-    Vector result(*this);
-    result *= v;
-    return result;
+    Vector val(*this);
+    val *= v;
+    return val;
 }
 
 value& Vector::operator[](size_t idx) {
-    assert(idx < lng);
-    return donne[idx];
+    assert(idx < N);
+    return data[idx];
 }
 
 value Vector::operator[](size_t idx) const {
-    assert(idx < lng);
-    return donne[idx];
+    assert(idx < N);
+    return data[idx];
 }
 
 Vector operator*(const value& s, const Vector& v) {

@@ -39,10 +39,11 @@ public:
 
 private:
 // Private Member functions here (if necessary)
-    //value donne[NDIM];
-    size_t lng;
-    std::unique_ptr<value[]> donne;
+
 // Member variables are ALWAYS private, and they go here
+
+    size_t N;
+    std::unique_ptr<value[]> data;
 };
 
 // Nonmember function operators go here
