@@ -144,3 +144,5 @@ std::ostream& operator<<(std::ostream& o, const Vector& v) {
     o<<v[i]<<"}";
     return o;
 }
+
+//test
