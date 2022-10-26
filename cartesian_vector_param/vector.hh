@@ -29,7 +29,7 @@ public:
     size_t getSize() const;
 private:
 // Private Member functions here
-    value donne[NDIM];
+    value data[NDIM];
     size_t lng;
 // Member variables are ALWAYS private, and they go here
 };

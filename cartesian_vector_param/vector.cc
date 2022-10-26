@@ -8,7 +8,7 @@ Vector::Vector()
 {
     lng = NDIM;
     for(size_t i = 0;i < lng ; i++)
-        donne[i] = 0;
+        data[i] = 0;
 }
 
 Vector::Vector(std::initializer_list<value> l)
@@ -17,7 +17,7 @@ Vector::Vector(std::initializer_list<value> l)
     size_t i = 0;
     for(auto & nbr : l)
     {
-        donne[i++] = nbr;
+        data[i++] = nbr;
     }
 }
 
@@ -29,14 +29,14 @@ size_t Vector::getSize() const
 Vector& Vector::operator+=(const Vector& rhs)
 {
     for (int i = 0; i < rhs.getSize(); i++)
-        donne[i] += rhs[i];
+        data[i] += rhs[i];
     return *this;
 }
 
 Vector& Vector::operator-=(const Vector& rhs)
 {
     for (int i = 0; i < rhs.getSize(); i++)
-        donne[i] -= rhs[i];
+        data[i] -= rhs[i];
     return *this;
 }
 
@@ -66,12 +66,12 @@ value Vector::operator*(const Vector& rhs)
 
 value Vector::operator[](size_t i) const
 {
-    return donne[i];
+    return data[i];
 }
 
 value& Vector::operator[](size_t i)
 {
-    return donne[i];
+    return data[i];
 }
 
 Vector operator*(Vector& rhs,const value val)
