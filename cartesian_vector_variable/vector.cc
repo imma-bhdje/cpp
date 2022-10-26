@@ -1,143 +1,146 @@
 #include <ostream>
-#include <iostream>
+#include <memory>
 
 #include "vector.hh"
 
 
-Vector::Vector(const Vector &v)
+Vector::Vector(const Vector& rhs)
+        : lng(rhs.lng)
+        , donne(new value[lng])
 {
-    this->donne = std::make_unique<value[]>(v.size());
-    for (size_t i = 0; i < v.size() ; ++i)
-        donne[i] = v[i];
-    lng = v.size();
-}
-
-
-Vector& Vector::operator=(const Vector &v) {
-    this->donne = std::make_unique<value[]>(v.size());
-    for (size_t i = 0; i < v.size() ; ++i) donne[i] = v[i];
-    lng = v.size();
-    return *this;
-}
-
-Vector::Vector(std::initializer_list<value> l)
-{
-    lng = l.size();
-    value i = 0;
-    donne = std::make_unique<value[]>(l.size());
-    for (value val : l) {
-        donne[i++] = val;
+    for (size_t i = 0; i < lng; ++i)
+    {
+        donne[i] = rhs.donne[i];
     }
 }
 
-Vector::Vector(size_t N) {
-    donne = std::make_unique<value[]>(N);
-    for (int i = 0; i < N; i++) {
+
+Vector& Vector::operator=(const Vector& rhs)
+{
+    if (this != &rhs)
+    {
+        lng = rhs.lng;
+        donne.reset(new value[lng]);
+        for (size_t i = 0; i < lng; ++i)
+        {
+            donne[i] = rhs.donne[i];
+        }
+    }
+    return *this;
+}
+
+
+Vector::Vector(size_t N) : lng(lng), donne(new value[lng]) {
+    for (size_t i = 0; i < N; ++i)
+    {
         donne[i] = 0;
     }
-    lng = N;
 }
+
+Vector::Vector(std::initializer_list<value> l) : lng(l.size()), donne(new value[lng]) {
+    size_t i = 0;
+    for (auto& v : l)
+    {
+        donne[i++] = v;
+    }
+}
+
+size_t Vector::size() const {
+    return lng;
+}
+
 
 Vector& Vector::operator+=(const Vector& rhs) {
-    if (lng != rhs.size())
-        std::runtime_error("erreur taille");
-    for (int i = 0; i < rhs.size(); i++) {
-        donne[i] += rhs[i];
-    }
-
-    return *this;
-}
-
-Vector& Vector::operator-=(const Vector& rhs){
-    if (lng != rhs.size())
-        std::runtime_error("erreur taille");
-    for (int i = 0; i < rhs.size(); i++) {
-        donne[i] -= rhs[i];
+    assert(lng == rhs.lng);
+    for (size_t i = 0; i < lng; ++i)
+    {
+        donne[i] += rhs.donne[i];
     }
     return *this;
 }
+
+Vector& Vector::operator-=(const Vector& rhs) {
+    assert(lng == rhs.lng);
+    for (size_t i = 0; i < lng; ++i)
+    {
+        donne[i] -= rhs.donne[i];
+    }
+    return *this;
+}
+
 
 Vector& Vector::operator+=(value v) {
-    for (int i = 0; i < lng; i++) {
+    for (size_t i = 0; i < lng; ++i)
+    {
         donne[i] += v;
     }
     return *this;
 }
 
-Vector& Vector::operator*=(value v){
-    for (int i = 0; i < lng; i++) {
+Vector& Vector::operator*=(value v) {
+    for (size_t i = 0; i < lng; ++i)
+    {
         donne[i] *= v;
     }
     return *this;
 }
 
 Vector Vector::operator+(const Vector& rhs) const {
-    if (lng != rhs.size())
-        std::runtime_error("Incompatible size");
-    for (int i = 0; i < rhs.size(); i++) {
-        donne[i] += rhs[i];
-    }
-    return *this;
+    Vector result(*this);
+    result += rhs;
+    return result;
 }
 
 Vector Vector::operator+(value v) const {
-    for (int i = 0; i < lng; i++) {
-        donne[i] += v;
-    }
-    return *this;
+    Vector result(*this);
+    result += v;
+    return result;
 }
 
 value Vector::operator*(const Vector& rhs) const {
-    if (lng != rhs.size())
-        std::runtime_error("Incompatible size");
-    value c = 0;
-    for (int i = 0; i < rhs.size(); i++) {
-        c += rhs[i] * (*this)[i];
+    assert(lng == rhs.lng);
+    value result = 0;
+    for (size_t i = 0; i < lng; ++i)
+    {
+        result += donne[i] * rhs.donne[i];
     }
-    return c;
+    return result;
 }
 
-Vector Vector::operator*(value x) const {
-    for (int i = 0; i < lng; i++) {
-        donne[i] *= x;
-    }
-    return *this;
-
+Vector Vector::operator*(value v) const {
+    Vector result(*this);
+    result *= v;
+    return result;
 }
 
 value& Vector::operator[](size_t idx) {
-    if (lng < idx)
-        std::runtime_error("Incompatible size");
+    assert(idx < lng);
     return donne[idx];
 }
 
 value Vector::operator[](size_t idx) const {
-    if (lng < idx)
-        std::runtime_error("Incompatible size");
+    assert(idx < lng);
     return donne[idx];
 }
 
-
-Vector operator+(const Vector& v,const value& x) {
-    Vector vec = Vector(v.size());
-    for (int i = 0; i < v.size(); i++) {
-        vec[i] = v[i] + x;
-    }
-    return vec;
+Vector operator*(const value& s, const Vector& v) {
+    return v * s;
 }
 
-Vector operator*(const Vector& v,const value& x) {
-    Vector vec = Vector(v.size());
-    for (int i = 0; i < v.size(); i++) {
-        vec[i] = v[i] * x;
-    }
-    return vec;
+Vector operator+(const value& s, const Vector& v) {
+    return v + s;
 }
 
-std::ostream& operator<<(std::ostream &o, const Vector& v)
-{
+std::ostream& operator<<(std::ostream& o, const Vector& v) {
     o << "{";
-    for (int i = 0; i < v.size(); i++)
-        o << v[i] << (i == v.size() - 1 ? "" : ",");
-    return o << "}";
+    for (size_t i = 0; i < v.size(); ++i)
+    {
+        o << v[i];
+        if (i != v.size() - 1)
+        {
+            o << ",";
+        }
+    }
+    o << "}";
+    return o;
 }
