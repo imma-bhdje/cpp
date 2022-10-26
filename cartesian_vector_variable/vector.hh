@@ -39,11 +39,9 @@ public:
 
 private:
 // Private Member functions here (if necessary)
-
+    std::unique_ptr<value[]>data;
+    size_t lng;
 // Member variables are ALWAYS private, and they go here
-
-    size_t N;
-    std::unique_ptr<value[]> data;
 };
 
 // Nonmember function operators go here
