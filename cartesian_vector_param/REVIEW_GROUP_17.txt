@@ -14,6 +14,6 @@ func()
 
 - Ligne 19 (vector.cc), pensez à ajouter une ligne vide
 
-- Code compile bien
+- Code compile bien, c'est ok
 
 
