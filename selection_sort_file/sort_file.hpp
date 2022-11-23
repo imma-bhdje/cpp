@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 
+#include <string>
 
 #include <list>
 #include <vector>
@@ -9,49 +10,43 @@
 
 #include "my_sort.hpp"
 
-// Change here
-// All occurences of XXX need to be replaced with
-// something more meaningful
 
-
-template<class TYPE, class CNTN>
-void read_file_to_cont(std::ifstream& f, CNTN c) {
-    TYPE msg;
-    while (f >> msg) {
-        c.push_back(msg);
+template <class type, class contn>
+void read_file_to_cont(std::ifstream &fi , contn& c) {
+    type elt;
+    while (fi >> elt) {
+        c.push_back(elt);
     }
 }
 
-template<class type, class CNTN>
+template <class type, class contn>
 void read_and_sort(std::ifstream& fi, std::ofstream& fo) {
-    CNTN fle = {};
-    read_file_to_cont<type, CNTN>(fi, fle);
-    my_selection_sort(fle.begin(), fle.end());
-    for (type &msg : fle) {
-        fo << msg << std::endl;
-    }
+    contn cnt = {};
+    read_file_to_cont<type, contn>(fi, cnt);
+    my_selection_sort(cnt.begin(), cnt.end());
+    for (type &elt : cnt)
+        fo << elt << std::endl;
 }
 
-template<class type>
+template <class type>
 void read_and_sort_decide_container(std::ifstream& fi, std::ofstream& fo) {
-    char nextLine;
-    fi >> nextLine;
-    fo << nextLine << std::endl;
-    switch(nextLine)
+    char Line;
+    fi >> Line;
+    fo << Line << std::endl;
+    switch(Line)
     {
         case 'l':
             read_and_sort<type, std::list<type>>(fi, fo);
             break;
-
-        case 'd':
-            read_and_sort<type, std::deque<type>>(fi, fo);
-            break;
-
         case 'v':
             read_and_sort<type, std::vector<type>>(fi, fo);
             break;
+        case 'd':
+            read_and_sort<type, std::deque<type>>(fi, fo);
+            break;
     }
 }
+
 
 void read_and_sort_decide_valuetype(std::ifstream& fi, std::ofstream& fo) {
     char Line;

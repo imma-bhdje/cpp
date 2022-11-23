@@ -1,0 +1,3 @@
+/home/immaculee/cpp/selection_sort_file/build/CMakeFiles/rebuild_cache.dir
+/home/immaculee/cpp/selection_sort_file/build/CMakeFiles/edit_cache.dir
+/home/immaculee/cpp/selection_sort_file/build/CMakeFiles/main.dir

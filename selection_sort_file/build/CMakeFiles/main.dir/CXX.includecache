@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/immaculee/cpp/selection_sort_file/main.cc
+iostream
+-
+string
+-
+sort_file.hpp
+/home/immaculee/cpp/selection_sort_file/sort_file.hpp
+
+/home/immaculee/cpp/selection_sort_file/my_sort.hpp
+
+/home/immaculee/cpp/selection_sort_file/sort_file.hpp
+iostream
+-
+fstream
+-
+string
+-
+list
+-
+vector
+-
+deque
+-
+my_sort.hpp
+/home/immaculee/cpp/selection_sort_file/my_sort.hpp
+
