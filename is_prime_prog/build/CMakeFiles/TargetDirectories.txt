@@ -1,0 +1,3 @@
+/home/immaculee/cpp/is_prime_prog/build/CMakeFiles/rebuild_cache.dir
+/home/immaculee/cpp/is_prime_prog/build/CMakeFiles/edit_cache.dir
+/home/immaculee/cpp/is_prime_prog/build/CMakeFiles/main.dir

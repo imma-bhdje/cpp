@@ -4,7 +4,7 @@
 
 int main(int argc, char **argv) 
 {
-    unsigned int number;
+    unsigned long number;
 
     while (std::cin >> number) 
     {
@@ -15,9 +15,9 @@ int main(int argc, char **argv)
         }
 
         bool is_prime = true;
-        unsigned int root = sqrt(number);
+        unsigned long root = sqrt(number);
 
-        for (unsigned int i = 2; i <= root; ++i) 
+        for (unsigned long i = 2; i <= root; ++i) 
         {
             if (number % i == 0) 
             {
